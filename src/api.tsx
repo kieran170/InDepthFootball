@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const getLeagues = (nation: string) => {
-  let leagueNumber = "";
-
+  let leagueNumber: string = "";
   function phoneticLookup(val: string) {
     const lookup: any = {
       England: "2021",

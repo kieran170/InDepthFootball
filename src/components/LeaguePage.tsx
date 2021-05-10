@@ -40,7 +40,6 @@ export default function LeaguePage(props: NationProps) {
   return (
     <>
       <header>
-        <p>Hello from {nation}</p>
         <button>
           <Link to="/">Home</Link>
         </button>
@@ -49,21 +48,22 @@ export default function LeaguePage(props: NationProps) {
         <div className="league-table-container">
           <h1 className="league-table-h1">League Table</h1>
           {leagueTable.map((team: any) => {
-            console.log(team);
             return (
-              <div className="league-item-container">
-                <ul key={team.team.id}>
-                  <li>{team.position}</li>
-                  <img
-                    className="football-crest"
-                    src={team.team.crestUrl}
-                    alt="team badge"
-                  />
-                  <li>{team.team.name}</li>
-                  <li>Games Played: {team.playedGames}</li>
-                  <li> Points: {team.points}</li>
-                </ul>
-              </div>
+              <Link to={`/teams/${team.team.id}`}>
+                <div className="league-item-container">
+                  <ul key={team.team.id}>
+                    <li>{team.position}</li>
+                    <img
+                      className="football-crest"
+                      src={team.team.crestUrl}
+                      alt="team badge"
+                    />
+                    <li>{team.team.name}</li>
+                    <li>Games Played: {team.playedGames}</li>
+                    <li> Points: {team.points}</li>
+                  </ul>
+                </div>
+              </Link>
             );
           })}
         </div>

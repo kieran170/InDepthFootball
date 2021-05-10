@@ -3,6 +3,7 @@ import "./App.css";
 import { Router, RouteComponentProps } from "@reach/router";
 import LeaguePage from "./components/LeaguePage";
 import Homepage from "./components/Homepage";
+import TeamPage from "./components/TeamPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         pageComponent={<LeaguePage nation="France" />}
       />
       <RouterPage path="Italy" pageComponent={<LeaguePage nation="Italy" />} />
+      <RouterPage path="/teams/:team_id" pageComponent={<TeamPage />} />
     </Router>
   );
 }
