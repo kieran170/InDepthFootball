@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { Router, RouteComponentProps } from "@reach/router";
+import LeaguePage from "./components/LeaguePage";
+import Homepage from "./components/Homepage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <RouterPage path="/" pageComponent={<Homepage />} />
+      <RouterPage
+        path="England"
+        pageComponent={<LeaguePage nation="England" />}
+      />
+      <RouterPage path="Spain" pageComponent={<LeaguePage nation="Spain" />} />
+      <RouterPage
+        path="Germany"
+        pageComponent={<LeaguePage nation="Germany" />}
+      />
+      <RouterPage
+        path="France"
+        pageComponent={<LeaguePage nation="France" />}
+      />
+      <RouterPage path="Italy" pageComponent={<LeaguePage nation="Italy" />} />
+    </Router>
   );
 }
 
 export default App;
+
+const RouterPage = (
+  props: { pageComponent: JSX.Element } & RouteComponentProps
+) => props.pageComponent;
