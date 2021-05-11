@@ -100,3 +100,10 @@ a:hover {
 ul {
   list-style: none;
 }
+.teampage-lists-container {
+  display: inline-flex;
+  width: 100%;
+}
+.teampage-list {
+  width: 49%;
+}

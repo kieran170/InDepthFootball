@@ -1,54 +1,89 @@
-import React, {useEffect, useState} from "react";
-import { useLocation } from "@reach/router"
+import React, { useEffect, useState } from "react";
+import { useLocation } from "@reach/router";
 import * as api from "../api";
 import { Link } from "@reach/router";
 
 export default function TeamPage() {
+  const location = useLocation();
+  const [teamData, setTeamData]: any = useState([]);
+  const [fixtures, setFixtures]: any = useState([]);
 
-  const location = useLocation()
-  const [teamData, setTeamData]: any = useState([])
+  const teamId = location.pathname.slice(7);
 
   useEffect((): any => {
-    const teamId = location.pathname.slice(7)
-    let teamDataNew: object[] = [] ;
-    let squadData: object[] = []
-    return api.getTeamData(teamId).then((res) => {
-      const teamInfo = res
-      teamDataNew.push(teamInfo)
-      squadData.push(teamData.squad)
-    }).then(() => {
-      setTeamData(teamDataNew[0])
-    })
-  },[])
+    let teamDataNew: object[];
 
-  const roster = teamData.squad
+    return api
+      .getTeamData(teamId)
+      .then((res) => {
+        const teamInfo = res;
+        teamDataNew = teamInfo;
+      })
+      .then(() => {
+        setTeamData(teamDataNew);
+      });
+  }, []);
+
+  useEffect((): any => {
+    let fixturesArray: object[];
+    return api
+      .getFixtures(teamId)
+      .then((res) => {
+        fixturesArray = res.matches;
+      })
+      .then(() => {
+        setFixtures(fixturesArray);
+      });
+  }, []);
+
+  const roster = teamData.squad;
+
+  const findWinner: any = (winner: string) => {};
 
   return (
     <>
-    <button>
-          <Link to="/">Home</Link>
-        </button>
-    <div className='teampage-header'>
-      <img src={teamData.crestUrl} alt='teampage-badge'/>
-      <p>{teamData.name} </p>
-    </div>
-    <div>
-      {roster && (
-        <>
-        <h2>Team Roster</h2>
-        {roster.map((playerInfo: any) => {
-          console.log(roster)
-          return (
-            <ul>
-              <li>{playerInfo.name}</li>
-              <li>{playerInfo.position}</li>
-              <li>{playerInfo.nationality}</li>
-              </ul>
-          )
-        })}
-        </>
-      )}
-    </div>
+      <button>
+        <Link to="/">Home</Link>
+      </button>
+      <div className="teampage-header">
+        <img src={teamData.crestUrl} alt="teampage-badge" />
+        <h1>{teamData.name} </h1>
+      </div>
+      <div className="teampage-lists-container">
+        {roster && (
+          <div className="teampage-list">
+            <h2>Team Roster</h2>
+            {roster.map((playerInfo: any) => {
+              return (
+                <ul key={playerInfo.id}>
+                  <li>{playerInfo.name}</li>
+                  <li>{playerInfo.position}</li>
+                  <li>{playerInfo.nationality}</li>
+                </ul>
+              );
+            })}
+          </div>
+        )}
+        {fixtures && (
+          <div className="teampage-list">
+            <h2>Fixtures</h2>
+            {fixtures.map((fixture: any) => {
+              console.log(fixture);
+              return (
+                <ul key={fixture.id}>
+                  <li>
+                    <h4>{fixture.competition.name}</h4> {fixture.homeTeam.name}
+                    {fixture.score.fullTime.homeTeam}
+                    {fixture.awayTeam.name}
+                    {fixture.score.fullTime.awayTeam}
+                    {findWinner(fixture.score.winner)}
+                  </li>
+                </ul>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </>
   );
 }
