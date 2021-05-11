@@ -49,7 +49,7 @@ export default function LeaguePage(props: NationProps) {
           <h1 className="league-table-h1">League Table</h1>
           {leagueTable.map((team: any) => {
             return (
-              <Link to={`/teams/${team.team.id}`}>
+              <Link to={`/teams/${team.team.id}`} >
                 <div className="league-item-container">
                   <ul key={team.team.id}>
                     <li>{team.position}</li>

@@ -49,3 +49,12 @@ export const getLeagueScorers = (nation: string) => {
       return data;
     });
 };
+
+export const getTeamData = (teamId: string) => {
+  return axios.get(`http://api.football-data.org/v2/teams/${teamId}`, {
+    headers: { "X-Auth-Token": "bb5c9f0b8e1a442ea833002ce9111d90" },
+  })
+  .then(({ data }) => {
+    return data;
+  });
+}
