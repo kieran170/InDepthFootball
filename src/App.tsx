@@ -4,9 +4,11 @@ import { Router, RouteComponentProps } from "@reach/router";
 import LeaguePage from "./components/LeaguePage";
 import Homepage from "./components/Homepage";
 import TeamPage from "./components/TeamPage";
+import {UserProvider} from './UserContext'
 
 function App() {
   return (
+    <UserProvider>
     <Router>
       <RouterPage path="/" pageComponent={<Homepage />} />
       <RouterPage
@@ -25,6 +27,7 @@ function App() {
       <RouterPage path="Italy" pageComponent={<LeaguePage nation="Italy" />} />
       <RouterPage path="/teams/:team_id" pageComponent={<TeamPage />} />
     </Router>
+    </UserProvider>
   );
 }
 

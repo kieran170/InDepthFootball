@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation } from "@reach/router";
 import * as api from "../api";
 import { Link } from "@reach/router";
+import {UserContext} from '../UserContext'
 
 export default function TeamPage() {
   const location = useLocation();
   const [teamData, setTeamData]: any = useState([]);
   const [fixtures, setFixtures]: any = useState([]);
+  const [user, setUser] = useContext(UserContext)
 
   const teamId = location.pathname.slice(7);
 
   useEffect((): any => {
     let teamDataNew: object[];
-
     return api
       .getTeamData(teamId)
       .then((res) => {
@@ -68,7 +69,6 @@ export default function TeamPage() {
           <div className="teampage-list">
             <h2>Fixtures</h2>
             {fixtures.map((fixture: any) => {
-              console.log(fixture);
               return (
                 <ul key={fixture.id}>
                   <li>
