@@ -3,6 +3,7 @@ import { useLocation } from "@reach/router";
 import * as api from "../api";
 import { Link } from "@reach/router";
 import {UserContext} from '../UserContext'
+import SignOut from "./SignOut"
 
 export default function TeamPage() {
   const location = useLocation();
@@ -43,6 +44,7 @@ export default function TeamPage() {
 
   return (
     <>
+    {user !== '' && <SignOut />}
       <button>
         <Link to="/">Home</Link>
       </button>
@@ -76,7 +78,6 @@ export default function TeamPage() {
                     {fixture.score.fullTime.homeTeam}
                     {fixture.awayTeam.name}
                     {fixture.score.fullTime.awayTeam}
-                    {findWinner(fixture.score.winner)}
                   </li>
                 </ul>
               );

@@ -1,11 +1,17 @@
-import React from "react";
+import React, {useContext} from "react";
 import "../App.css";
 import { Link } from "@reach/router";
+import AddUser from './AddUser'
+import { UserContext } from "../UserContext";
+import SignOut from "./SignOut"
 
 export default function Homepage() {
+  const [user, setUser] = useContext(UserContext);
   return (
     <>
       <div className="header">
+      {user !== '' && <SignOut />}
+      {user === '' && <AddUser />}
         <h1 className="logo">Football Indepth</h1>
       </div>
       <section className="main-homepage-form">
@@ -28,6 +34,7 @@ export default function Homepage() {
           </li>
         </ul>
       </section>
+
     </>
   );
 }

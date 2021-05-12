@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "@reach/router";
 import * as api from "../api";
+import { UserContext } from "../UserContext";
+import SignOut from "./SignOut"
 
 interface NationProps {
   nation: string;
@@ -11,6 +13,7 @@ export default function LeaguePage(props: NationProps) {
 
   const [leagueTable, setLeagueTable] = useState([]);
   const [leagueScorers, setLeagueScorers] = useState([]);
+  const [user, setUser] = useContext(UserContext);
 
   useEffect((): any => {
     let leagueTableArray: any = [];
@@ -40,6 +43,7 @@ export default function LeaguePage(props: NationProps) {
   return (
     <>
       <header>
+      {user !== '' && <SignOut />}
         <button>
           <Link to="/">Home</Link>
         </button>
@@ -49,9 +53,9 @@ export default function LeaguePage(props: NationProps) {
           <h1 className="league-table-h1">League Table</h1>
           {leagueTable.map((team: any) => {
             return (
-              <Link to={`/teams/${team.team.id}`} >
+              <Link key={team.team.id} to={`/teams/${team.team.id}`} >
                 <div className="league-item-container">
-                  <ul key={team.team.id}>
+                  <ul >
                     <li>{team.position}</li>
                     <img
                       className="football-crest"
