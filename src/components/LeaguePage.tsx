@@ -14,13 +14,14 @@ export default function LeaguePage(props: NationProps) {
   const [leagueTable, setLeagueTable] = useState([]);
   const [leagueScorers, setLeagueScorers] = useState([]);
   const [user, setUser] = useContext(UserContext);
+  const [loading, setLoading] = useState(true)
 
   useEffect((): any => {
-    let leagueTableArray: any = [];
+    let leagueTableArray: [][] = [];
     return api
       .getLeagues(nation)
       .then((res) => {
-        const updatedTable = res.standings[0].table;
+        const updatedTable: [] = res.standings[0].table;
         leagueTableArray.push(updatedTable);
       })
       .then(() => {
@@ -29,11 +30,11 @@ export default function LeaguePage(props: NationProps) {
   }, []);
 
   useEffect((): any => {
-    let leagueScorersArray: any = [];
+    let leagueScorersArray: [][] = [];
     return api
       .getLeagueScorers(nation)
       .then((res) => {
-        const scorers = res.scorers;
+        const scorers: [] = res.scorers;
         leagueScorersArray.push(scorers);
       })
       .then(() => {
@@ -42,6 +43,7 @@ export default function LeaguePage(props: NationProps) {
   }, []);
   return (
     <>
+    {loading === true && <p>Loading</p>}
       <header>
       {user !== '' && <SignOut />}
         <button>

@@ -4,7 +4,7 @@ import { UserContext } from "../UserContext";
 export default function SignOut() {
     const [user, setUser] = useContext(UserContext);
 
-    const handleSignOut = (event: any) => {
+    const handleSignOut = (event: React.SyntheticEvent):void => {
         event.preventDefault()
         setUser('')
 

@@ -8,7 +8,7 @@ import SignOut from "./SignOut"
 export default function TeamPage() {
   const location = useLocation();
   const [teamData, setTeamData]: any = useState([]);
-  const [fixtures, setFixtures]: any = useState([]);
+  const [fixtures, setFixtures]: any  = useState([]);
   const [user, setUser] = useContext(UserContext)
 
   const teamId = location.pathname.slice(7);

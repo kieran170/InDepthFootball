@@ -5,11 +5,11 @@ const AddUser = () => {
   const [name, setName] = useState("");
   const [user, setUser] = useContext(UserContext);
 
-  const updateName = (event: any) => {
+  const updateName = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setName(event.target.value);
   };
 
-  const addUser = (event: any) => {
+  const addUser = (event: React.SyntheticEvent):void => {
     event.preventDefault();
     if (name !== '') {
       setUser({name: name})
